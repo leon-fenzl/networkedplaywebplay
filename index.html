@@ -1,249 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no">
-		<title>TestShrimp</title>
-		<style>
-body {
-	touch-action: none;
-	margin: 0;
-	border: 0 none;
-	padding: 0;
-	text-align: center;
-	background-color: black;
-}
+<html lang="en-us">
 
-#canvas {
-	display: block;
-	margin: 0;
-	color: white;
-}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>ShrimpV3</title>
+	<style>
+		html,
+		body {
+			background: #000;
+			width: 100%;
+			height: 100%;
+			overflow: visible;
+			padding: 0;
+			margin: 0;
+		}
 
-#canvas:focus {
-	outline: none;
-}
+		div#gameContainer {
+			background: transparent !important;
+			position: absolute;
+		}
 
-.godot {
-	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	color: #e0e0e0;
-	background-color: #3b3943;
-	background-image: linear-gradient(to bottom, #403e48, #35333c);
-	border: 1px solid #45434e;
-	box-shadow: 0 0 1px 1px #2f2d35;
-}
+		div#gameContainer canvas {
+			position: absolute;
+		}
 
-/* Status display */
+		div#gameContainer canvas[data-pixel-art="true"] {
+			position: absolute;
+			image-rendering: optimizeSpeed;
+			image-rendering: -webkit-crisp-edges;
+			image-rendering: -moz-crisp-edges;
+			image-rendering: -o-crisp-edges;
+			image-rendering: crisp-edges;
+			image-rendering: -webkit-optimize-contrast;
+			image-rendering: optimize-contrast;
+			image-rendering: pixelated;
+			-ms-interpolation-mode: nearest-neighbor;
+		}
+	</style>
+</head>
 
-#status {
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	/* don't consume click events - make children visible explicitly */
-	visibility: hidden;
-}
-
-#status-progress {
-	width: 366px;
-	height: 7px;
-	background-color: #38363A;
-	border: 1px solid #444246;
-	padding: 1px;
-	box-shadow: 0 0 2px 1px #1B1C22;
-	border-radius: 2px;
-	visibility: visible;
-}
-
-@media only screen and (orientation:portrait) {
-	#status-progress {
-		width: 61.8%;
-	}
-}
-
-#status-progress-inner {
-	height: 100%;
-	width: 0;
-	box-sizing: border-box;
-	transition: width 0.5s linear;
-	background-color: #202020;
-	border: 1px solid #222223;
-	box-shadow: 0 0 1px 1px #27282E;
-	border-radius: 3px;
-}
-
-#status-indeterminate {
-	height: 42px;
-	visibility: visible;
-	position: relative;
-}
-
-#status-indeterminate > div {
-	width: 4.5px;
-	height: 0;
-	border-style: solid;
-	border-width: 9px 3px 0 3px;
-	border-color: #2b2b2b transparent transparent transparent;
-	transform-origin: center 21px;
-	position: absolute;
-}
-
-#status-indeterminate > div:nth-child(1) { transform: rotate( 22.5deg); }
-#status-indeterminate > div:nth-child(2) { transform: rotate( 67.5deg); }
-#status-indeterminate > div:nth-child(3) { transform: rotate(112.5deg); }
-#status-indeterminate > div:nth-child(4) { transform: rotate(157.5deg); }
-#status-indeterminate > div:nth-child(5) { transform: rotate(202.5deg); }
-#status-indeterminate > div:nth-child(6) { transform: rotate(247.5deg); }
-#status-indeterminate > div:nth-child(7) { transform: rotate(292.5deg); }
-#status-indeterminate > div:nth-child(8) { transform: rotate(337.5deg); }
-
-#status-notice {
-	margin: 0 100px;
-	line-height: 1.3;
-	visibility: visible;
-	padding: 4px 6px;
-	visibility: visible;
-}
-		</style>
-		<link id='-gd-engine-icon' rel='icon' type='image/png' href='index.icon.png' />
-<link rel='apple-touch-icon' href='index.apple-touch-icon.png'/>
-<link rel='manifest' href='index.manifest.json'>
-
-	</head>
-	<body>
-		<canvas id="canvas">
-			HTML5 canvas appears to be unsupported in the current browser.<br >
-			Please try updating or use a different browser.
-		</canvas>
-		<div id="status">
-			<div id="status-progress" style="display: none;" oncontextmenu="event.preventDefault();">
-				<div id ="status-progress-inner"></div>
-			</div>
-			<div id="status-indeterminate" style="display: none;" oncontextmenu="event.preventDefault();">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-			<div id="status-notice" class="godot" style="display: none;"></div>
-		</div>
-
-		<script src="index.js"></script>
+<body>
+	<div id="gameContainer">
+		<canvas id="unity-canvas" data-pixel-art=""></canvas>
+		<script src="Build/FullBodyBuild.loader.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":19456,"index.wasm":48585775},"focusCanvas":true,"gdextensionLibs":[],"serviceWorker":"index.service.worker.js"};
-const engine = new Engine(GODOT_CONFIG);
+			var canvas = document.querySelector("#unity-canvas");
+			var config = {
+				dataUrl: "Build/FullBodyBuild.data",
+				frameworkUrl: "Build/FullBodyBuild.framework.js",
+				codeUrl: "Build/FullBodyBuild.wasm",
+				streamingAssetsUrl: "StreamingAssets",
+				companyName: "DefaultCompany",
+				productName: "ShrimpV3",
+				productVersion: "0.1.0",
+			};
+			var scaleToFit;
+			try {
+				scaleToFit = !!JSON.parse("");
+			} catch (e) {
+				scaleToFit = true;
+			}
+			function progressHandler(progress) {
+				var percent = progress * 100 + '%';
+				canvas.style.background = 'linear-gradient(to right, white, white ' + percent + ', transparent ' + percent + ', transparent) no-repeat center';
+				canvas.style.backgroundSize = '100% 1rem';
+			}
+			function onResize() {
+				var container = canvas.parentElement;
+				var w;
+				var h;
 
-(function () {
-	const INDETERMINATE_STATUS_STEP_MS = 100;
-	const statusProgress = document.getElementById('status-progress');
-	const statusProgressInner = document.getElementById('status-progress-inner');
-	const statusIndeterminate = document.getElementById('status-indeterminate');
-	const statusNotice = document.getElementById('status-notice');
+				if (scaleToFit) {
+					w = window.innerWidth;
+					h = window.innerHeight;
 
-	let initializing = true;
-	let statusMode = 'hidden';
+					var r = 720 / 1280;
 
-	let animationCallbacks = [];
-	function animate(time) {
-		animationCallbacks.forEach((callback) => callback(time));
-		requestAnimationFrame(animate);
-	}
-	requestAnimationFrame(animate);
-
-	function animateStatusIndeterminate(ms) {
-		const i = Math.floor((ms / INDETERMINATE_STATUS_STEP_MS) % 8);
-		if (statusIndeterminate.children[i].style.borderTopColor === '') {
-			Array.prototype.slice.call(statusIndeterminate.children).forEach((child) => {
-				child.style.borderTopColor = '';
-			});
-			statusIndeterminate.children[i].style.borderTopColor = '#dfdfdf';
-		}
-	}
-
-	function setStatusMode(mode) {
-		if (statusMode === mode || !initializing) {
-			return;
-		}
-		[statusProgress, statusIndeterminate, statusNotice].forEach((elem) => {
-			elem.style.display = 'none';
-		});
-		animationCallbacks = animationCallbacks.filter(function (value) {
-			return (value !== animateStatusIndeterminate);
-		});
-		switch (mode) {
-		case 'progress':
-			statusProgress.style.display = 'block';
-			break;
-		case 'indeterminate':
-			statusIndeterminate.style.display = 'block';
-			animationCallbacks.push(animateStatusIndeterminate);
-			break;
-		case 'notice':
-			statusNotice.style.display = 'block';
-			break;
-		case 'hidden':
-			break;
-		default:
-			throw new Error('Invalid status mode');
-		}
-		statusMode = mode;
-	}
-
-	function setStatusNotice(text) {
-		while (statusNotice.lastChild) {
-			statusNotice.removeChild(statusNotice.lastChild);
-		}
-		const lines = text.split('\n');
-		lines.forEach((line) => {
-			statusNotice.appendChild(document.createTextNode(line));
-			statusNotice.appendChild(document.createElement('br'));
-		});
-	}
-
-	function displayFailureNotice(err) {
-		const msg = err.message || err;
-		console.error(msg);
-		setStatusNotice(msg);
-		setStatusMode('notice');
-		initializing = false;
-	}
-
-	const missing = Engine.getMissingFeatures();
-	if (missing.length !== 0) {
-		const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-		displayFailureNotice(missingMsg + missing.join('\n'));
-	} else {
-		setStatusMode('indeterminate');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (total > 0) {
-					statusProgressInner.style.width = `${(current / total) * 100}%`;
-					setStatusMode('progress');
-					if (current === total) {
-						// wait for progress bar animation
-						setTimeout(() => {
-							setStatusMode('indeterminate');
-						}, 500);
+					if (w * r > window.innerHeight) {
+						w = Math.min(w, Math.ceil(h / r));
 					}
+					h = Math.floor(w * r);
 				} else {
-					setStatusMode('indeterminate');
+					w = 1280;
+					h = 720;
 				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-			initializing = false;
-		}, displayFailureNotice);
-	}
-}());
-		</script>
-	</body>
-</html>
 
+				container.style.width = canvas.style.width = w + "px";
+				container.style.height = canvas.style.height = h + "px";
+				container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+				container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+			}
+			createUnityInstance(canvas, config, progressHandler).then(function (instance) {
+				canvas = instance.Module.canvas;
+				onResize();
+			});
+			window.addEventListener('resize', onResize);
+			onResize();
+
+			if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+				// Mobile device style: fill the whole browser client area with the game canvas:
+				const meta = document.createElement('meta');
+				meta.name = 'viewport';
+				meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+				document.getElementsByTagName('head')[0].appendChild(meta);
+			}
+		</script>
+	</div>
+</body>
+
+</html>
