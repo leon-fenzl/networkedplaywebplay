@@ -30,9 +30,12 @@
       width: 2vw;
       height: 2vh;
       z-index:1;
-      background-color: red;
-    }
+      .btt{
+        background-color: red;
+        padding: 10px;
+      }
 
+    }
 		div#gameContainer canvas[data-pixel-art="true"] {
 			position: absolute;
 			image-rendering: optimizeSpeed;
@@ -52,7 +55,7 @@
 	<div id="gameContainer">
 		<canvas id="unity-canvas" data-pixel-art=""></canvas>
     <div id="fs">
-      <button id="btt">Full</button>
+      <button class="btt">Full</button>
     </div>
 		<script src="Build/FullBodyBuild V2.loader.js"></script>
 		<script>
