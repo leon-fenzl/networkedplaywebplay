@@ -52,11 +52,12 @@
 </head>
 
 <body>
-  <div id="fs">
-    <button id="btt">Full</button>
-  </div>
 	<div id="gameContainer">
-		<canvas id="unity-canvas" data-pixel-art=""></canvas>
+		<canvas id="unity-canvas" data-pixel-art="">
+      <div id="fs">
+        <button id="btt">Full</button>
+      </div>
+    </canvas>
 		<script src="Build/FullBodyBuild V2.loader.js"></script>
 		<script>
 			var canvas = document.querySelector("#unity-canvas");
