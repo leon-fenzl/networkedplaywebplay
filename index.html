@@ -26,8 +26,8 @@
 			position: absolute;
 		}
 
-    div#gameContainer#fs {
-			position: absolute;
+    div#fs{
+			position:absolute bottom;
       width: 5vh;
       height: 5vh;
 		}
@@ -49,7 +49,9 @@
 
 <body>
 	<div id="gameContainer">
-    <button id="fs">Full</button>
+    <div id="fs">
+      <button>Full</button>
+    </div>
 		<canvas id="unity-canvas" data-pixel-art=""></canvas>
 		<script src="Build/FullBodyBuild V2.loader.js"></script>
 		<script>
