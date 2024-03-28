@@ -26,6 +26,12 @@
 			position: absolute;
 		}
 
+    div#gameContainer#fs {
+			position: absolute;
+      width: 5vh;
+      height: 5vh;
+		}
+
 		div#gameContainer canvas[data-pixel-art="true"] {
 			position: absolute;
 			image-rendering: optimizeSpeed;
@@ -42,8 +48,8 @@
 </head>
 
 <body>
-  <button >Fullscreen Btt</button>
 	<div id="gameContainer">
+    <button id="fs">Full</button>
 		<canvas id="unity-canvas" data-pixel-art=""></canvas>
 		<script src="Build/FullBodyBuild V2.loader.js"></script>
 		<script>
