@@ -26,16 +26,16 @@
 			position: absolute;
 		}
     #fs{
-      position: absolute;
-      padding:10px;
-      right:0;
-      bottom: 0;
-      z-index:1;
-      .btt{
-        background-color: red;
-        padding: 20px;
-        border: none;
-      }
+          position: absolute;
+          padding:10px;
+          right:0;
+          bottom: 0;
+          z-index:1;
+          .btt{
+            background-color: red;
+            padding: 20px;
+            border: none;
+          }
     }
 		div#gameContainer canvas[data-pixel-art="true"] {
 			position: absolute;
@@ -54,17 +54,17 @@
 
 <body>
 	<div id="gameContainer">
-		<canvas id="unity-canvas" data-pixel-art=""></canvas>
     <div id="fs">
       <button class="btt"></button>
     </div>
-		<script src="Build/FullBodyBuild V2.loader.js"></script>
+		<canvas id="unity-canvas" data-pixel-art=""></canvas>
+		<script src="Build/FullBodyBuild V3.loader.js"></script>
 		<script>
 			var canvas = document.querySelector("#unity-canvas");
 			var config = {
-				dataUrl: "Build/FullBodyBuild V2.data",
-				frameworkUrl: "Build/FullBodyBuild V2.framework.js",
-				codeUrl: "Build/FullBodyBuild V2.wasm",
+				dataUrl: "Build/FullBodyBuild V3.data",
+				frameworkUrl: "Build/FullBodyBuild V3.framework.js",
+				codeUrl: "Build/FullBodyBuild V3.wasm",
 				streamingAssetsUrl: "StreamingAssets",
 				companyName: "DefaultCompany",
 				productName: "ShrimpV3",
