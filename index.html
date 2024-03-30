@@ -25,19 +25,7 @@
 		div#gameContainer canvas {
 			position: absolute;
 		}
-    #fs{
-          position: absolute;
-          padding:10px;
-          right:0;
-          bottom: 0;
-          z-index:1;
-          .btt{
-            background-color: none;
-            padding: 20px;
-            border: none;
-            content:url("imgs/fullScreeOn.png");
-          }
-    }
+
 		div#gameContainer canvas[data-pixel-art="true"] {
 			position: absolute;
 			image-rendering: optimizeSpeed;
@@ -50,14 +38,25 @@
 			image-rendering: pixelated;
 			-ms-interpolation-mode: nearest-neighbor;
 		}
+    #fs{
+      position: absolute;
+      padding:10px;
+      right:0;
+      bottom: 0;
+      z-index:1;
+      .btt{
+        content: url("imgs/fullScreeOn.png");
+        background-color: none;
+        padding: 20px;
+        border: none;
+      }
+    }
 	</style>
 </head>
 
 <body>
 	<div id="gameContainer">
-    <div id="fs">
-      <button class="btt"></button>
-    </div>
+    <div id="fs"><button class="btt"></button></div>
 		<canvas id="unity-canvas" data-pixel-art=""></canvas>
 		<script src="Build/FullBodyBuild V3.loader.js"></script>
 		<script>
